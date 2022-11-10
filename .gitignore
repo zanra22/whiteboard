@@ -1,12 +1,13 @@
 .DS_STORE
-
+Whiteboard/settings/local.py
+local_partha.py
 # Virtualenv related
 bin/
 include/
 pip-selfcheck.json
 
 # Django related
-Whiteboard/settings/local.py
+
 # src/<yourproject>/settings/local.py
 # static-cdn/  # any collected static files
 
