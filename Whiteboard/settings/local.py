@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path, os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-from django.conf.global_settings import MEDIA_URL
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -60,7 +60,7 @@ ROOT_URLCONF = 'Whiteboard.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, '../../templates')]
+        'DIRS': [BASE_DIR / 'templates']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -126,11 +126,11 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [BASE_DIR / "static_my_project", ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, "../../static_cdn", "static_root")
+STATIC_ROOT = os.path.join(BASE_DIR, "static_cdn", "static_root")
 
 MEDIA_URL = 'media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "../../static_cdn", "media_root")
+MEDIA_ROOT = os.path.join(BASE_DIR, "static_cdn", "media_root")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

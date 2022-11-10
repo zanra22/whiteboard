@@ -14,7 +14,6 @@ from pathlib import Path, os
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-from django.conf.global_settings import MEDIA_URL
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -46,6 +45,8 @@ INSTALLED_APPS = [
 
 
 AUTH_USER_MODEL = 'accounts.User'
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -56,7 +57,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 ROOT_URLCONF = 'Whiteboard.urls'
+
 
 TEMPLATES = [
     {
