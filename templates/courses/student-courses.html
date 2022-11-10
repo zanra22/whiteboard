@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    <div class="container">
+        
+      <div class="flex justify-between" style="margin: 1em 0">
+        <h2>My Courses</h2>
+        
+        <a href="/course/enroll/">
+          <button>
+            Enroll
+          </button>
+        </a>
+      </div>
+      
+      <div class="flex wrap courses-container">
+        {% for course in courses %}
+          <a href="{% url 'detailed' course.id %}">
+            <div class="course-card">
+              <h2>{{ course.title }}</h2>
+              <small>{{ course.description }}</small>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+
+    </div>
+  </body>
+</html>

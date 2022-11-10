@@ -1,0 +1,41 @@
+{% load static %}
+
+<html lang="en">
+<head>
+
+    <title>Sections</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+</head>
+<body>
+{% include 'navbar.html' %}<br><br><br><br><br><br>
+<table align="center" class="userlist">
+    <thead>
+    <tr>
+        <th>Section ID</th>
+        <th>Name of Section</th>
+    </tr>
+    </thead>
+    <tbody>
+     {% for section in sections %}
+        <tr>
+            <td data-label="ID">{{ section.id }}</td>
+            <td data-label="Title">{{ section.nameofsection }}</td>
+            <td><button onclick="location.href='{% url 'updatesections' section.id %}'">Update</button>
+            </td>
+            <td><button onclick="location.href='{% url 'deletesections' section.id %}'">Delete</button>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<br><br>
+<div class="add-course">
+<button onclick="location.href='{% url 'addsectionspage' %}'">Add Section</button>
+</div>
+</body>
+</html></title>
+</head>
+<body>
+
+</body>
+</html>

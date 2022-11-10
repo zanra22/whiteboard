@@ -1,0 +1,23 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <title>Edit Section</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+</head>
+<body>
+{% include 'navbar.html' %}
+<h2 class="title">
+    Edit Section
+</h2>
+<form class="courseform" method="post" action="{{ section.id }}">
+    {% csrf_token %}
+    Name of Section: <br>
+    <input name="nameofsection" value="{{ section.nameofsection }}">
+    <br><br>
+    <input type="Reset" value="Reset">
+    <input type="submit" value="Submit">
+</form>
+</p>
+</body>
+</html>

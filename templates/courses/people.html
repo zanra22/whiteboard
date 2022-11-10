@@ -1,0 +1,166 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+        <title>{{ course.title }}</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    </head>
+    <style>
+        .course-header {
+            width: 100%;
+            border-radius: 0.5em;
+            margin: 1em 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        h3 {
+          font-weight: 500;
+        }
+        .tabs-container {
+            border-top: 0.5px solid var(--form-control-border);
+            border-bottom: 0.5px solid var(--form-control-border);
+        }
+        .tabs {
+            font-size: 0.85em;
+            padding: 1em 4em;
+            cursor: pointer;
+            transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+        .tabs:hover {
+            background-color: var(--box-shadow);
+        }
+        .tabs-active {
+            background-color: var(--box-shadow);
+        }
+        .tabs-active:hover {
+            background-color: var(--form-control-border);
+        }
+        .student {
+          padding: 1em;
+          display: flex;
+          align-items: center;
+        }
+        .student:hover {
+          box-shadow: 0px 3px 5px 2px rgba(200,200,200,0.4);
+        }
+        .student > * + * {
+          margin: 0 0 0 1em;
+        }
+        .circle {
+          width: 2.5rem;
+          height: 2.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          border: 0.5px solid var(--form-control-border);
+          color: var(--primary-accent-color);
+          font-size: 1em;
+        }
+        .delete {
+            background-color: transparent;
+            border: 0.5px solid var(--delete-color);
+            color: var(--delete-color);
+            font-size: 0.8em;
+            padding: 0.5em 2em;
+        }
+        .delete:hover {
+            background-color: var(--delete-accent-color);
+            color: white;
+        }
+        .edit {
+            background-color: transparent;
+            border: 0.5px solid var(--primary-color);
+            color: var(--primary-color);
+            font-size: 0.8em;
+            padding: 0.5em 2em;
+        }
+        .edit:hover {
+            background-color: var(--primary-accent-color);
+            color: white;
+        }
+    </style>
+    <body>
+        {% include 'navbar.html' %}
+        <div class="container">
+            <div class="course-header">
+                <div class="flex flex-col">
+                    <h1>{{ course.title }}</h1>
+                    <small>{{ course.description }}</small>
+                    <small>{{ course.schedule }}</small>
+                    <!-- <small style="margin: 2em 0 0 0;">
+                        {{ course.creator.last_name }} {{ course.creator.first_name }}
+                    </small> -->
+                    <small style="margin: 2.5em 0 0 0;">Key: {{ course.key }}</small>
+                </div>
+                {% if user.is_student %}
+                <div class="flex flex-col">
+                    <button>Unenroll</button>
+                </div>
+                {% endif %}
+                {% if user.is_professor %}
+                <div class="flex flex-col">
+                    <div class="flex flex-row">
+                        <button
+                            class="delete"
+                            onclick="location.href='{% url 'deletecourse' course.id %}'"
+                        >
+                            Delete
+                        </button>
+                        <button 
+                            class="edit" 
+                            style="margin:0 0 0 1em;"
+                            onclick="location.href='{% url 'editcoursepage' course.id %}'"
+                        >
+                            Edit
+                        </button>
+                    </div>
+
+                    <button 
+                        onclick="location.href='{% url 'addlessonpage' course.id %}'"
+                        style="margin: 1em 0 0 0;"
+                    >
+                        Add Lesson
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="flex flex-row tabs-container">
+                <a href="/course/{{course.id}}">
+                    <div class="tabs">Stream</div>
+                </a>
+                <a href="/course/{{course.id}}/people">
+                    <div class="tabs tabs-active">People</div>
+                </a>
+                <a href="/course/{{course.id}}/feedback">
+                    <div class="tabs">Feedback</div>
+                </a>
+{#                <a href="/course/{{course.id}}/activity">#}
+{#                    <div class="tabs">Student Activity</div>#}
+{#                </a>#}
+            </div>
+
+
+            <div class="flex flex-row" style="margin: 2em 0;">
+              <div style="flex:1;" class="flex flex-col">
+                <small>Instructor: </small>
+                <h3>{{ course.creator.last_name }}, {{ course.creator.first_name }}</h3>
+              </div>
+              <div style="flex:1;">
+                  {% if students %}
+                      <small>Students: </small>
+                      {% for person in students %}
+                        <div class="student">
+                          <div class="circle">{{ person.last_name.0 }}</div>
+                          <p>{{ person.last_name }}, {{ person.first_name }}</p>
+                        </div>
+                      {% endfor %}
+                  {% else %}
+                      <p>No Students Enrolled</p>
+                  {% endif %}
+              </div>
+            </div>
+        </div>
+    </body>
+</html>

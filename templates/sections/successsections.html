@@ -1,0 +1,15 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <title>Success</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+</head>
+<body>
+{% include "navbar.html" %}
+<h2 class="title">
+    You added a Section.
+</h2>
+<a href="{% url 'sectionspage' %}">Section List</a>
+</body>
+</html>

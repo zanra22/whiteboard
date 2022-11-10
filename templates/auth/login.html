@@ -1,0 +1,30 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+        <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    </head>
+    <body>
+        <main class="flex flex-col justify-center items-center">
+            <form class="login-form" method="post">
+                <div>
+                    <h1>Welcome</h1>
+                    <small>Please Login to Continue</small>
+                </div>
+                <div class="flex flex-col">
+                    {% csrf_token %}
+                    <div class="flex flex-col">
+                        <label for="">Email</label>
+                        {{ form.email }}
+                    </div>
+                    <div class="flex flex-col" style="margin:1.2em 0;">
+                        <label for="">Password</label>
+                        {{ form.password }}
+                    </div>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </main>
+    </body>
+</html>

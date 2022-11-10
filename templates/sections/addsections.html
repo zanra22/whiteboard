@@ -1,0 +1,22 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <title>Add Section</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+</head>
+<body>
+{% include 'navbar.html' %}
+<h2 class="title">
+    Add Section
+</h2>
+<form class="courseform" method="POST">
+    {%  csrf_token %}
+    <p>Name of Section {{ form.nameofsection }}</p>
+    <button type="submit">Submit</button>
+</form>
+    </div>
+</form>
+</p>
+</body>
+</html>

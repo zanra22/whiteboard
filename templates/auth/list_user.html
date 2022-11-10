@@ -1,0 +1,135 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+        <title>User List</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    </head>
+    <style>
+        table {
+            width: 100%;
+        }
+        thead > tr > th {
+            font-weight: 500;
+            font-size: 1.1em;
+            padding: 0.7em;
+        }
+        tr:nth-child(even) {
+            background-color: var(--table-alternate-row);
+        }
+        td {
+            text-align: center;
+            font-size: 0.9em;
+        }
+        .edit {
+            background-color: transparent;
+            color: var(--primary-color);
+            font-size: 0.9em;
+            padding: 0.75em 1em;
+        }
+        .edit:hover {
+            background-color: transparent;
+            text-decoration: underline;
+            color: var(--primary-accent-color);
+        }
+        .delete {
+            background-color: transparent;
+            color: var(--delete-color);
+            font-size: 0.9em;
+            padding: 0.75em 1em;
+        }
+        .delete:hover {
+            background-color: transparent;
+            text-decoration: underline;
+            color: var(--delete-accent-color);
+        }
+        .search {
+            border: 0.5px solid var(--form-control-border);
+            background-color: white;
+            color: var(--primary-color);
+        }
+        .search:hover {
+            border: 0.5px solid var(--primary-color);
+            background-color: var(--primary-color);
+            color: white;
+        }
+    </style>
+    <body>
+        {% include 'navbar.html' %}
+        <div class="container">
+
+            <div class="flex flex-row justify-between" style="margin: 1em 0;">
+                <div class="flex">
+                    <form class="flex" action="" method="GET">
+                        <input
+                            type="text"
+                            style="width:25em;"
+                            class="form-control"
+                            placeholder="Search"
+                            name="search"
+                        />
+                        <button style="margin: 0 0 0 1em;" class="search" type="submit">Search</button>
+                    </form>
+                    <!-- <a href="/users/" style="margin: 0 0 0 1em;padding: 0;">
+                        <button style="height: 100%; width: 100%;">
+                            Refresh
+                        </button>
+                    </a> -->
+                </div>
+                <a href="{% url 'registerpage' %}">
+                    <button style="height: 100%;">
+                        Create User
+                    </button>
+                </a>
+            </div>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Student</th>
+                    <th>Professor</th>
+                    <th>Admin</th>
+                    <th>Activity (Days)</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td data-label="ID">{{ user.id }}</td>
+                        <td data-label="Email">{{ user.email }}</td>
+                        <td data-label="First-Name">{{ user.first_name }}</td>
+                        <td data-label="Last-Name">{{ user.last_name }}</td>
+                        <td data-label="Student">{{ user.student }}</td>
+                        <td data-label="Professor">{{ user.professor }}</td>
+                        <td data-label="Professor">{{ user.admin }}</td>
+                        <td data-label="Activity">{{ user.totalDays }}</td>
+                        <td>
+                            <!-- <button> -->
+                            <button 
+                                class="edit"
+                                onclick="location.href='{% url 'update' user.id %}'"
+                            >
+                                Edit
+                            </button>
+                        </td>
+                        <td>
+                            <!-- <button> -->
+                            <button
+                                class="delete"
+                                onclick="location.href='{% url 'delete' user.id %}'"
+                            >
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </body>
+</html>

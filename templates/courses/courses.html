@@ -1,0 +1,139 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+
+        <title>Courses</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    </head>
+    <style>
+        table {
+            width: 100%;
+        }
+        thead > tr > th {
+            font-weight: 500;
+            font-size: 1.1em;
+            padding: 0.7em;
+        }
+        tr:nth-child(even) {
+            background-color: var(--table-alternate-row);
+        }
+        td {
+            text-align: center;
+            font-size: 0.9em;
+        }
+        .edit {
+            background-color: transparent;
+            color: var(--primary-color);
+            font-size: 0.9em;
+            padding: 0.75em 1em;
+        }
+        .edit:hover {
+            background-color: transparent;
+            text-decoration: underline;
+            color: var(--primary-accent-color);
+        }
+        .delete {
+            background-color: transparent;
+            color: var(--delete-color);
+            font-size: 0.9em;
+            padding: 0.75em 1em;
+        }
+        .delete:hover {
+            background-color: transparent;
+            text-decoration: underline;
+            color: var(--delete-accent-color);
+        }
+        .search {
+            border: 0.5px solid var(--form-control-border);
+            background-color: white;
+            color: var(--primary-color);
+        }
+        .search:hover {
+            border: 0.5px solid var(--primary-color);
+            background-color: var(--primary-color);
+            color: white;
+        }
+    </style>
+    <body>
+    {% include 'navbar.html' %}
+    <div class="container">
+        <div class="flex flex-row justify-between" style="margin: 1em 0;">
+            <div class="flex">
+                <form class="flex" action="" method="GET">
+                    <input
+                        type="text"
+                        style="width:25em;"
+                        class="form-control"
+                        placeholder="Search"
+                        name="search"
+                    />
+                    <button style="margin: 0 0 0 1em;" class="search" type="submit">Search</button>
+                </form>
+                <!-- <a href="/users/" style="margin: 0 0 0 1em;padding: 0;">
+                    <button style="height: 100%; width: 100%;">
+                        Refresh
+                    </button>
+                </a> -->
+            </div>
+            <a href="{% url 'addcoursepage' %}">
+                <button style="height: 100%;">
+                    Add Course
+                </button>
+            </a>
+        </div>
+
+        {% if request.user.is_admin %}
+        <table>
+            <thead>
+            <tr>
+                <th>Course ID</th>
+                <th>Course Title</th>
+                <th>Course Description</th>
+                <th>Course Professor</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for course in courses %}
+                <tr>
+                    <td data-label="ID">{{ course.id }}</td>
+                    <td data-label="Title"><a class="course-link" href="{% url 'detailed' course.id %}">{{ course.title }}</a></td>
+                    <td data-label="Description">{{ course.description }}</td>
+                    <td data-label="Section">{{ course.creator.first_name }}</td>
+                    {% if request.user.is_admin %}
+                    <td>
+                        <button 
+                            class="edit"
+                            onclick="location.href='{% url 'editcoursepage' course.id %}'"
+                        >
+                            Edit
+                        </button>
+                    </td>
+                    <td>
+                        <button
+                            class="delete"
+                            onclick="location.href='{% url 'deletecourse' course.id %}'"
+                        >
+                            Delete
+                        </button>
+                    </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <div class="flex wrap courses-container">
+                {% for course in courses %}
+                    <a href="{% url 'detailed' course.id %}">
+                        <div class="course-card">
+                            <h2>{{ course.title }}</h2>
+                            <small>{{ course.description }}</small>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    </body>
+</html>

@@ -1,0 +1,45 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+        <title>Add Feedback</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    </head>
+    <style>
+        form {
+            width: min(90%, 50em);
+            margin: 0 auto;
+        }
+        form > * {
+            margin: 1.5em 0;
+        }
+    </style>
+    <body>
+        {% include 'navbar.html' %}
+        <div class="container">
+            <form action="" method="POST">
+                <div class="flex flex-col">
+                    <h2>Add Feedback ({{ course.title }})</h2>
+                    <small>Fill up the form to Continue</small>
+                </div>
+                {%  csrf_token %}
+                <div class="flex flex-col">
+                    <label for="title">
+                        Title
+                    </label>
+                    {{ form.title }}
+                </div>
+                <div class="flex flex-col">
+                    <label for="description">
+                        Description
+                    </label>
+                    {{ form.description }}
+                </div>
+                <input type="file" name="file" id="file"/>
+                <button style="float: right;" type="submit">Submit</button>
+            </form>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

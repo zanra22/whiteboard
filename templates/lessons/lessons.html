@@ -1,0 +1,22 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+        <title>Lessons</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    </head>
+    <style>
+        .container > * {
+            margin: 1em 0;
+        }
+    </style>
+    <body>
+        {% include 'navbar.html' %}
+        <div class="container">
+            <h1>{{ lesson.title }}</h1>
+            <p>{{ lesson.description }}</p>
+            <p>{{ lesson.description1 }}</p>
+            <div>Files</div>
+        </div>
+    </body>
+</html>

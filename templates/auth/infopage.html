@@ -1,0 +1,32 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+        <title>Information Page</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    </head>
+    <style>
+        .cons {
+            width: min(90%, 40em);
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        .cons > * {
+            margin: 0.7em 0;
+        }
+    </style>
+    <body>
+        {% include 'navbar.html' %}
+        <div class="container">
+            <div class="cons">
+                <h2>Information Page</h2>
+                <p>Name: {{ user.first_name }}, {{ user.last_name }}</p>
+                <p>Email: {{ user.email }}</p>
+            </div>
+        </div>
+    </body>
+</html>

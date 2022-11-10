@@ -1,0 +1,42 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+        <title>Edit Course</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    </head>
+    <style>
+        form {
+            width: min(90%, 40em);
+            margin: 0 auto;
+            height: 85vh;
+        }
+        form > * {
+            margin: 1.7em 0;
+        }
+    </style>
+    <body>
+        {% include 'navbar.html' %}
+        <div class="container">
+            <form method="post" action="">
+                <div class="flex flex-col">
+                    <h2>Edit Course Information</h2>
+                    <small>Update course details here</small>
+                </div>
+                {% csrf_token %}
+                <div class="flex flex-col">
+                    <label for="title">Title </label>
+                    <input name="title" value="{{ course.title }}">
+                </div>
+                <div class="flex flex-col">
+                    <label for="title">Description </label>
+                    <input name="description" value="{{ course.description }}">
+                </div>
+                <!-- Course Professor ( Ignore fls ): <br> -->
+                <!-- <input name="creator" value="{{ course.creator }}"> -->
+                <!-- <button type="Reset" value="Reset"> -->
+                <button style="float:right;" type="submit">Update</button>
+            </form>
+        </div>
+    </body>
+</html>
